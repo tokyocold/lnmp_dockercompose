@@ -1,0 +1,79 @@
+version: "3"
+services:
+  php:
+    build: ./container_config/php
+    container_name: myphp
+    volumes:
+      - ./html:/usr/share/nginx/html
+      - ./container_config/phpmyadmin:/etc/phpmyadmin/
+      - phpmyadmindata:/usr/share/nginx/html/pma 
+    networks:
+      - mynet
+  nginx:
+    image: nginx:latest
+    container_name: mynginx
+    depends_on:
+      - mysql
+      - redis 
+      - phpmyadmin
+    ports:
+      - "80:80"
+    volumes:
+      - ./container_config/nginx/conf.d:/etc/nginx/conf.d
+      - ./html:/usr/share/nginx/html
+      - phpmyadmindata:/usr/share/nginx/html/pma
+    networks:
+      - mynet
+
+  mysql:
+    image: mysql:5.7
+    container_name: mymysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./container_config/mysql/conf.d:/etc/mysql/conf.d
+      - ./container_config/mysql/mysql.conf.d:/etc/mysql/mysql.conf.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - mynet
+
+  redis:
+    image: redis:latest
+    container_name: myredis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    command: "redis-server --appendonly yes"
+    networks:
+      - mynet
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: myportainer
+    ports:
+      - "9000:9000"
+    networks:
+      - mynet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
+      - portainer_data:/data
+
+  phpmyadmin:
+    image: phpmyadmin:fpm-alpine
+    container_name: myphpmyadmin
+    restart: always
+    volumes:
+      - phpmyadmindata:/var/www/html
+    networks:
+      - mynet
+
+networks:
+  mynet:
+volumes:
+  mysqldata:
+  redisdata:
+  portainer_data:
+  phpmyadmindata:
