@@ -19,3 +19,6 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
 
 #modifying workspace
 WORKDIR /usr/share/nginx/html
+
+#COPY php.ini
+COPY ["./php/php.ini-development","$PHP_INI_DIR/php.ini"]

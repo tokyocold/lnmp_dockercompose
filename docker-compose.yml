@@ -4,7 +4,7 @@ services:
     build: ./container_config/php
     container_name: myphp
     volumes:
-      - ./html:/usr/share/nginx/html
+      - ./:/usr/share/nginx/html
       - ./container_config/phpmyadmin:/etc/phpmyadmin/
       - phpmyadmindata:/usr/share/nginx/html/pma 
     networks:
@@ -14,13 +14,13 @@ services:
     container_name: mynginx
     depends_on:
       - mysql
-      - redis 
+      - redis
       - phpmyadmin
     ports:
       - "80:80"
     volumes:
       - ./container_config/nginx/conf.d:/etc/nginx/conf.d
-      - ./html:/usr/share/nginx/html
+      - ./:/usr/share/nginx/html
       - phpmyadmindata:/usr/share/nginx/html/pma
     networks:
       - mynet
@@ -50,16 +50,6 @@ services:
     networks:
       - mynet
 
-  portainer:
-    image: portainer/portainer-ce
-    container_name: myportainer
-    ports:
-      - "9000:9000"
-    networks:
-      - mynet
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock 
-      - portainer_data:/data
 
   phpmyadmin:
     image: phpmyadmin:fpm-alpine
@@ -75,5 +65,4 @@ networks:
 volumes:
   mysqldata:
   redisdata:
-  portainer_data:
   phpmyadmindata:
