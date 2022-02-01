@@ -16,7 +16,7 @@ composer已经更换为国内阿里源。
 
 
 
-#### 0. 说明
+## 0. 说明
 
 `docker-compose up`一键生成lamp开发环境。
 
@@ -24,7 +24,7 @@ composer已经更换为国内阿里源。
 
 
 
-#### 1.使用
+## 1.使用
 
 1. 下载框架（laravel,thinkphp)
 2. 复制docker-compose.yml,container_config/到项目根目录下
@@ -32,7 +32,7 @@ composer已经更换为国内阿里源。
 
 
 
-#### 2.访问
+## 2.访问
 
 项目地址：http://localhost
 
@@ -44,7 +44,7 @@ phpstorm配置xdebug监听端口9003.
 
 
 
-#### 3.其他
+## 3.其他
 
 ##### 安装composer依赖
 
