@@ -2,23 +2,20 @@ version: "3"
 services:
   php:
     build: ./container_config/php
-    container_name: myphp
     volumes:
       - ./:/usr/share/nginx/html
       - ./container_config/phpmyadmin:/etc/phpmyadmin/
-      - phpmyadmindata:/usr/share/nginx/html/pma 
+      - phpmyadmindata:/usr/share/nginx/html/pma
     networks:
       - mynet
   nginx:
     image: nginx:latest
-    container_name: mynginx
     depends_on:
       - mysql
       - redis
       - phpmyadmin
     ports:
       - "80:80"
-      - "8000:8000"
     volumes:
       - ./container_config/nginx/conf.d:/etc/nginx/conf.d
       - ./:/usr/share/nginx/html
@@ -28,7 +25,6 @@ services:
 
   mysql:
     image: mysql:5.7
-    container_name: mymysql
     ports:
       - "3306:3306"
     volumes:
@@ -42,7 +38,6 @@ services:
 
   redis:
     image: redis:latest
-    container_name: myredis
     ports:
       - "6379:6379"
     volumes:
@@ -54,7 +49,6 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:fpm-alpine
-    container_name: myphpmyadmin
     restart: always
     volumes:
       - phpmyadmindata:/var/www/html
