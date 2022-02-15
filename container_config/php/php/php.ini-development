@@ -1946,9 +1946,17 @@ ldap.max_links = -1
 ; List of headers files to preload, wildcard patterns allowed.
 ;ffi.preload=
 
-xdebug.mode=debug
-xdebug.log=/tmp/xdebug.log
-xdebug.start_with_request = default
-xdebug.start_with_request=trigger
-xdebug.client_port=9003
+
+; xdebug3 config
+;xdebug.mode=debug
+;xdebug.log=/tmp/xdebug.log
+;xdebug.start_with_request = default
+;xdebug.start_with_request=trigger
+;xdebug.client_port=9003
+
+; xdebug2 config
+xdebug.remote_enable=1
+xdebug.remote_host=host.docker.internal
+xdebug.remote_port=9000
+
 xdebug.client_host=host.docker.internal
