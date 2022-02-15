@@ -9,7 +9,7 @@ RUN ["apt-get","update"]
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 #Installing extensions
-RUN install-php-extensions gd xdebug redis pdo_mysql zip exif pcntl bcmath opcache mysqli
+RUN install-php-extensions gd xdebug-^2 redis pdo_mysql zip exif pcntl bcmath opcache mysqli
 
 #Installing composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
